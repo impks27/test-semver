@@ -1,0 +1,15 @@
+name: Test SemVer
+
+on:
+ push:
+
+jobs:
+  semver:
+
+    permissions:
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: paulhatch/semantic-version@v5.2.3
