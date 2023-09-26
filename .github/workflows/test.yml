@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Install git
       run: |
-        sudo apt install git
+        sudo apt-get update
+        sudo apt-get install git
+        git --version
     
     - uses: paulhatch/semantic-version@master
