@@ -3,27 +3,23 @@ name: Test SemVer
 on:
  push:
 
-permissions:
-  actions: write
-  checks: write
-  contents: write
-  deployments: write
-  id-token: write
-  issues: write
-  discussions: write
-  packages: write
-  pages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
-
 jobs:
   semver:
 
     permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      id-token: write
       issues: write
+      discussions: write
+      packages: write
+      pages: write
       pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
     runs-on: ubuntu-latest
 
     steps:
