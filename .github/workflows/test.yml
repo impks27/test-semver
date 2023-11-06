@@ -52,12 +52,6 @@ jobs:
         git config user.name "impks27"
         git tag -a ${{steps.semantic-version.outputs.version_tag }} HEAD -m "Tag ${{steps.semantic-version.outputs.version_tag }}"
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{steps.semantic-version.outputs.version_tag }}
-
     - name: Show tags
       run: |
         git tag
