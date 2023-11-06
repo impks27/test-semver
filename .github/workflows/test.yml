@@ -47,10 +47,13 @@ jobs:
 
     - name: Create tag
       run: |
-        git config user.email "impks27"
-        git config user.name "impks27"
         git tag -a ${{steps.semantic-version.outputs.version }} HEAD -m "Tag ${{steps.semantic-version.outputs.version }}"
-        git push origin ${{steps.semantic-version.outputs.version }}
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{steps.semantic-version.outputs.version }}
 
     - name: Show tags
       run: |
