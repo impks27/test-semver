@@ -43,15 +43,13 @@ jobs:
 
     - name: Output
       run: 
-        echo ${{steps.semantic-version.outputs.version_tag}}
+        echo ${{steps.semantic-version.outputs.version }}
 
     - name: Create tag
-      uses: actions/github-script@v5
-      with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{ steps.semantic-version.outputs.version_tag}}",
-              sha: context.sha
-            })
+      run: |
+        git tag -a ${{steps.semantic-version.outputs.version }} HEAD -m "Tag ${{steps.semantic-version.outputs.version }}"
+        git push origin ${{steps.semantic-version.outputs.version }}
+
+    - name: Show tags
+      run: |
+        git push origin --tags
