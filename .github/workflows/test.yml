@@ -41,6 +41,10 @@ jobs:
     - uses: paulhatch/semantic-version@master
       id: semantic-version
 
+    - name: Output
+      run: 
+        echo ${{steps.semantic-version.output.version_tag}}
+
     - name: Create tag
       uses: actions/github-script@v5
       with:
@@ -48,6 +52,6 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/${{ steps.semantic-version.output.version_tag}}',
+              ref: "refs/tags/${{ steps.semantic-version.output.version_tag}}",
               sha: context.sha
             })
