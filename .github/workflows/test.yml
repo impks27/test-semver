@@ -36,22 +36,27 @@ jobs:
        
     - uses: paulhatch/semantic-version@master
       id: semantic-version
+      with:
+        tag_prefix: ""
+        major_pattern: "[MAJOR]"
+        minor_pattern: "[MINOR]"
+
 
     - name: Output
       run: 
-        echo ${{steps.semantic-version.outputs.version }}
+        echo ${{steps.semantic-version.outputs.version_tag }}
 
     - name: Create tag
       run: |
         git config user.email "impks27"
         git config user.name "impks27"
-        git tag -a ${{steps.semantic-version.outputs.version }} HEAD -m "Tag ${{steps.semantic-version.outputs.version }}"
+        git tag -a ${{steps.semantic-version.outputs.version_tag }} HEAD -m "Tag ${{steps.semantic-version.outputs.version_tag }}"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{steps.semantic-version.outputs.version }}
+        branch: ${{steps.semantic-version.outputs.version_tag }}
 
     - name: Show tags
       run: |
