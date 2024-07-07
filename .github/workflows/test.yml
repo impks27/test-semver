@@ -33,18 +33,32 @@ jobs:
       uses: actions/checkout@v2
       with:
        fetch-depth: 0   
-       
-    - uses: paulhatch/semantic-version@master
-      id: semantic-version
+
+    - name: calculate version
+      id: calculate-version
+      uses: bitshifted/git-auto-semver@v1
       with:
-        tag_prefix: ""
-        major_pattern: "[MAJOR]"
-        minor_pattern: "[MINOR]"
+          main_branch: main
+          create_tag: true
+          tag_prefix: 'tags'
+     
+    - name: Use version
+      id: semantic-version
+      run: |
+         echo "Calculated version: ${{ steps.calculate-version.outputs.version-string }}"
+         echo "version_tag=${{ steps.calculate-version.outputs.version-string }}" >> $GITHUB_OUTPUT
+       
+    # - uses: paulhatch/semantic-version@master
+    #   id: semantic-version
+    #   with:
+    #     tag_prefix: ""
+    #     major_pattern: "[MAJOR]"
+    #     minor_pattern: "[MINOR]"
 
 
-    - name: Output
-      run: 
-        echo ${{steps.semantic-version.outputs.version_tag }}
+    # - name: Output
+    #   run: 
+    #     echo ${{steps.semantic-version.outputs.version_tag }}
 
     - name: Create tag
       run: |
